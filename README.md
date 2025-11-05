@@ -1,4 +1,4 @@
-# Sicher Fusion E-Commerce App
+# Sicherheit E-Commerce App
 
 This is a modern, stylish, and secure ecommerce web application built with React, TypeScript, and Tailwind CSS. It features a product catalog, shopping cart, and an AI-powered style assistant.
 

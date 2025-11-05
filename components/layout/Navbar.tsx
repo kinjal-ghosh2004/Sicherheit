@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link to="/" className="text-2xl font-bold text-primary flex-shrink-0">
-              Sicher
+              Sicherheit
             </Link>
             <div className="hidden md:flex items-baseline space-x-4">
               <NavLink 

@@ -11,7 +11,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const getInitialState = (): User | null => {
   try {
-    const savedUser = localStorage.getItem('sicherUser');
+    const savedUser = localStorage.getItem('sicherheitUser');
     if (savedUser) {
       const parsedUser = JSON.parse(savedUser);
       if (parsedUser.name && parsedUser.role) {
@@ -25,15 +25,17 @@ const getInitialState = (): User | null => {
   return null;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+// FIX: Changed component definition to use React.FC for consistency with other components
+// and to resolve a potential typing issue with JSX children.
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(getInitialState());
 
   useEffect(() => {
     try {
       if(user) {
-        localStorage.setItem('sicherUser', JSON.stringify(user));
+        localStorage.setItem('sicherheitUser', JSON.stringify(user));
       } else {
-        localStorage.removeItem('sicherUser');
+        localStorage.removeItem('sicherheitUser');
       }
     } catch (error) {
       console.error("Could not save user to localStorage", error);

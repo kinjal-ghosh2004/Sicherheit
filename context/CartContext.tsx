@@ -13,7 +13,7 @@ type CartAction =
 
 const getInitialState = (): CartState => {
   try {
-    const savedCart = localStorage.getItem('sicherCart');
+    const savedCart = localStorage.getItem('sicherheitCart');
     if (savedCart) {
       const parsedCart = JSON.parse(savedCart);
       if (Array.isArray(parsedCart.items)) {
@@ -86,12 +86,14 @@ interface CartContextType {
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider = ({ children }: { children: ReactNode }) => {
+// FIX: Changed component definition to use React.FC for consistency with other components
+// and to resolve a potential typing issue with JSX children.
+export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
     try {
-      localStorage.setItem('sicherCart', JSON.stringify(state));
+      localStorage.setItem('sicherheitCart', JSON.stringify(state));
     } catch (error) {
       console.error("Could not save cart to localStorage", error);
     }
