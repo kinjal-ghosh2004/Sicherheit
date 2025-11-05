@@ -1,16 +1,19 @@
-
 import { GoogleGenAI } from "@google/genai";
 
-// Assume process.env.API_KEY is configured in the environment
-if (!process.env.API_KEY) {
-    // In a real app, you'd want to handle this more gracefully.
-    // For this example, we'll throw an error if the key is missing.
+// Vite exposes environment variables on the `import.meta.env` object
+// FIX: Switched to process.env.API_KEY to align with @google/genai guidelines, resolving the type error on import.meta.env.
+const apiKey = process.env.API_KEY;
+
+if (!apiKey) {
+    // FIX: Updated warning message to reflect the new environment variable name.
     console.warn("API_KEY environment variable not set. AI features will be disabled.");
 }
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+
+// Initialize the AI client only if the API key is available
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 export const getAIProductInsights = async (productName: string): Promise<string> => {
-  if (!process.env.API_KEY) {
+  if (!ai) {
     return Promise.resolve("AI features are currently unavailable. Please configure an API key.");
   }
   
